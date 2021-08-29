@@ -81,8 +81,21 @@ Service web has neither an image nor a build context specified. At least one mus
 ```
 
 **Erro:** A imagem do django app não foi localizada.  
-**O que ele causa:** O comando não "docker-compose build" não faz a criação dos serviços determinados no arquivo yaml.
+**O que ele causa:** O comando "docker-compose build" não faz a criação dos serviços determinados no arquivo yaml.
 **Como corrigir:** Incluir "build: ." no serviço "web".  
+**Código corrigido:**
+
+---
+
+```sh
+Error: Database is uninitialized and superuser password is not specified.
+db_1 You must specify POSTGRES_PASSWORD to a non-empty value for the
+db_1 superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
+```
+
+**Erro:** Senha do usuário não localizada.  
+**O que ele causa:** O comando "docker-compose up" não faz a criação dos serviços determinados no arquivo yaml.
+**Como corrigir:** Incluir "POSTGRES\_" no arquivo "dev.env" e no arquivo "settings.py".  
 **Código corrigido:**
 
 ---
@@ -108,9 +121,9 @@ settings.py
 DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgre",
-            "NAME": os.getenv("DB"),
-            "USER": os.getenv("USER"),
-            "PASSWORD": os.getenv("PASSWORD"),
+            "NAME": os.getenv("POSTGRES_DB"),
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
             "HOST": "database",
             "PORT": 5432,
         }
@@ -123,56 +136,4 @@ DATABASES = {
 **O que ele causa:**  
 **Como corrigir:** Alterar para a descrição do "ENGINE" para "postgresql" e
 colocar o "HOST" apontando para o serviço indicado no arquivo docker-compose, que seria o "db".
-**Código corrigido:**
-
----
-
-**Código com erro:**
-
-```sh
-ENV PYTHONDONTWRITEBYTECODE 1
-```
-
-**Erro:**  
-**O que ele causa:** Linha de comando não é executada corretamente.  
-**Como corrigir:** Incluir o sinal de igualdade entre a instrução e o inteiro.  
-**Código corrigido:**
-
----
-
-**Código com erro:**
-
-```sh
-ENV PYTHONDONTWRITEBYTECODE 1
-```
-
-**Erro:**  
-**O que ele causa:** Linha de comando não é executada corretamente.  
-**Como corrigir:** Incluir o sinal de igualdade entre a instrução e o inteiro.  
-**Código corrigido:**
-
----
-
-```sh
-# imagem base
-FROM python:2.7
-
-RUN pip install -r requirements.txt
-
-ENV PYTHONDONTWRITEBYTECODE 1
-
-RUN apt update \
-    && apt install -y libpq-dev gcc
-
-RUN pip install psycopg2
-
-WORKDIR /code
-COPY . /code/
-
-```
-
-**Erro:** Instruções do Dockerfile fora de ordem de execução.
-**O que ele causa:** Linha de comando não é executada corretamente.  
-**Como corrigir:** Reorganizar o código, passando "COPY" e "WORKDIR"
-para o topo, logo após "FROM"; e passando "ENV" para o fim do código.
 **Código corrigido:**
