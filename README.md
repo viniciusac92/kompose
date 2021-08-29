@@ -71,3 +71,108 @@ INSTALLED_APPS = [
 ```
 
 ---
+
+**Código com erro:**
+
+```sh
+❯ docker-compose build
+ERROR: The Compose file is invalid because:
+Service web has neither an image nor a build context specified. At least one must be provided
+```
+
+**Erro:** A imagem do django app não foi localizada.  
+**O que ele causa:** O comando não "docker-compose build" não faz a criação dos serviços determinados no arquivo yaml.
+**Como corrigir:** Incluir "build: ." no serviço "web".  
+**Código corrigido:**
+
+---
+
+**Código com erro:**
+
+```sh
+FROM python:2.7
+```
+
+**Erro:** DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support...
+**O que ele causa:** Falha na instalação do requirements.txt .  
+**Como corrigir:** Alterar para a versão 3.9 .  
+**Código corrigido:**
+
+---
+
+**Código com erro:**
+
+```sh
+settings.py
+
+DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgre",
+            "NAME": os.getenv("DB"),
+            "USER": os.getenv("USER"),
+            "PASSWORD": os.getenv("PASSWORD"),
+            "HOST": "database",
+            "PORT": 5432,
+        }
+    }
+
+```
+
+**Erro:** "ENGINE": "django.db.backends.postgre"
+"HOST": "database"
+**O que ele causa:**  
+**Como corrigir:** Alterar para a descrição do "ENGINE" para "postgresql" e
+colocar o "HOST" apontando para o serviço indicado no arquivo docker-compose, que seria o "db".
+**Código corrigido:**
+
+---
+
+**Código com erro:**
+
+```sh
+ENV PYTHONDONTWRITEBYTECODE 1
+```
+
+**Erro:**  
+**O que ele causa:** Linha de comando não é executada corretamente.  
+**Como corrigir:** Incluir o sinal de igualdade entre a instrução e o inteiro.  
+**Código corrigido:**
+
+---
+
+**Código com erro:**
+
+```sh
+ENV PYTHONDONTWRITEBYTECODE 1
+```
+
+**Erro:**  
+**O que ele causa:** Linha de comando não é executada corretamente.  
+**Como corrigir:** Incluir o sinal de igualdade entre a instrução e o inteiro.  
+**Código corrigido:**
+
+---
+
+```sh
+# imagem base
+FROM python:2.7
+
+RUN pip install -r requirements.txt
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+RUN apt update \
+    && apt install -y libpq-dev gcc
+
+RUN pip install psycopg2
+
+WORKDIR /code
+COPY . /code/
+
+```
+
+**Erro:** Instruções do Dockerfile fora de ordem de execução.
+**O que ele causa:** Linha de comando não é executada corretamente.  
+**Como corrigir:** Reorganizar o código, passando "COPY" e "WORKDIR"
+para o topo, logo após "FROM"; e passando "ENV" para o fim do código.
+**Código corrigido:**

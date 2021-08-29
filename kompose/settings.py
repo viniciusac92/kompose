@@ -87,11 +87,11 @@ if os.getenv("TEST"):
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgres",
+            "ENGINE": "django.db.backends.postgresql",
             "NAME": os.getenv("DB"),
             "USER": os.getenv("USER"),
             "PASSWORD": os.getenv("PASSWORD"),
-            "HOST": "database",
+            "HOST": "db",
             "PORT": 5432,
         }
     }
