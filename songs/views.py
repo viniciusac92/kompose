@@ -30,7 +30,7 @@ class SongView(APIView):
         )[0]
 
         serializer = SongSerializer(song)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def put(self, request, song_id):
         serializer = SongSerializer(data=request.data)
