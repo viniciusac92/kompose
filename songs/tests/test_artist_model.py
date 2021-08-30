@@ -1,12 +1,7 @@
-import songs
-from django.urls import reverse
 from faker import Faker
-from rest_framework import status
 from rest_framework.test import APITestCase
 
 from ..models import Artist
-from ..serializers import ArtistSerializer
-from ..views import SongView
 
 fake = Faker()
 
