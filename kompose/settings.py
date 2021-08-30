@@ -82,7 +82,7 @@ WSGI_APPLICATION = "kompose.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if env("POSTGRES_TEST"):
+if env("POSTGRES_TEST") == 'True':
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
