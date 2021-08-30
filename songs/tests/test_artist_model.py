@@ -14,16 +14,10 @@ fake = Faker()
 class ArtistModelTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.artists = [Artist.objects.create(name=fake.first_name()) for _ in range(3)]
-        cls.artist = cls.artists[0]
+        cls.artist = Artist.objects.create(name=fake.first_name())
 
-    def test_can_browse_all_artists(self):
-        import ipdb
+    def test_it_has_information_fields(self):
+        self.assertIsInstance(self.artist.name, str)
 
-        ipdb.set_trace()
-        response = self.client.get(reverse('songs/'))
-
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-        self.assertEquals(len(self.artists), len(response.data))
-        for person in self.artists:
-            self.assertIn(ArtistSerializer(instance=person).data, response.data)
+    def test_str_models_methods(self):
+        self.assertEquals(f"<Artists: {self.artist.name}>", str(self.artist))
