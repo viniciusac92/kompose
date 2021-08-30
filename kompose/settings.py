@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "songs",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -75,7 +82,7 @@ WSGI_APPLICATION = "kompose.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if os.getenv("TEST"):
+if env("POSTGRES_TEST"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -86,11 +93,11 @@ if os.getenv("TEST"):
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgres",
-            "NAME": os.getenv("DB"),
-            "USER": os.getenv("USER"),
-            "PASSWORD": os.getenv("PASSWORD"),
-            "HOST": "database",
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("POSTGRES_DB"),
+            "USER": env("POSTGRES_USER"),
+            "PASSWORD": env("POSTGRES_PASSWORD"),
+            "HOST": "db",
             "PORT": 5432,
         }
     }
