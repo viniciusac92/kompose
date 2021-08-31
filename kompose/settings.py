@@ -103,13 +103,14 @@ else:
         }
     }
 
-DATABASE_URL = env("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
     config = dj_database_url.config(
         default=DATABASE_URL, conn_max_age=500, ssl_require=True
     )
     DATABASES["default"] = config
+    DEBUG = False
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
