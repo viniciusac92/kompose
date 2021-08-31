@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure--%^o^f1ju^5(&48b%3whbs@pzh1*uk@8m7t!k5_+yi@b!uncx2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kompose-backend.herokuapp.com', '0.0.0.0']
+ALLOWED_HOSTS = ['kompose-backend.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -149,6 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
