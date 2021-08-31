@@ -79,6 +79,18 @@ class SongViewTest(APITestCase):
                 self.assertEquals(value['name'], response.data[key]['name'])
                 self.assertEquals(value['name'], getattr(song, key).__dict__['name'])
 
+    def test_can_vote_a_song(self):
+        artist = Artist.objects.create()
+        song_data = {"title": fake.first_name(), "artist": artist}
+        song = Song.objects.create(**song_data)
+        response = self.client.patch(
+            reverse('songs/', args=[song.id]),
+        )
+        song.refresh_from_db()
+        self.assertEquals(status.HTTP_200_OK, response.status_code)
+        self.assertEquals(response.data["votes"], 2)
+        self.assertEquals(getattr(song, "votes"), 2)
+
     def test_can_delete_a_song(self):
         response = self.client.delete(reverse('songs/', args=[self.song.id]))
         self.assertEquals(status.HTTP_204_NO_CONTENT, response.status_code)
