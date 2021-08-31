@@ -136,7 +136,7 @@
     <p id="t82" class="pln"><span class="n"><a href="#t82">82</a></span><span class="t"><span class="com"># Database</span>&nbsp;</span><span class="r"></span></p>
     <p id="t83" class="pln"><span class="n"><a href="#t83">83</a></span><span class="t"><span class="com"># https://docs.djangoproject.com/en/3.2/ref/settings/#databases</span>&nbsp;</span><span class="r"></span></p>
     <p id="t84" class="pln"><span class="n"><a href="#t84">84</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t85" class="run"><span class="n"><a href="#t85">85</a></span><span class="t"><span class="key">if</span> <span class="nam">env</span><span class="op">(</span><span class="str">"POSTGRES_TEST"</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t85" class="run"><span class="n"><a href="#t85">85</a></span><span class="t"><span class="key">if</span> <span class="nam">env</span><span class="op">(</span><span class="str">"POSTGRES_TEST"</span><span class="op">)</span> <span class="op">==</span> <span class="str">'True'</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t86" class="run"><span class="n"><a href="#t86">86</a></span><span class="t">    <span class="nam">DATABASES</span> <span class="op">=</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
     <p id="t87" class="pln"><span class="n"><a href="#t87">87</a></span><span class="t">        <span class="str">"default"</span><span class="op">:</span> <span class="op">{</span>&nbsp;</span><span class="r"></span></p>
     <p id="t88" class="pln"><span class="n"><a href="#t88">88</a></span><span class="t">            <span class="str">"ENGINE"</span><span class="op">:</span> <span class="str">"django.db.backends.sqlite3"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -204,7 +204,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-08-30 12:45 -0300
+            created at 2021-08-30 22:13 -0300
         </p>
     </div>
 </div>
